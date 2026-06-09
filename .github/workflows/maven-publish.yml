@@ -22,17 +22,19 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-          fetch-depth: 0
+        fetch-depth: 0
+
     - name: Set up JDK 22
       uses: actions/setup-java@v3
       with:
         java-version: '22'
         distribution: 'temurin'
         cache: maven
+
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
-      # ------------------ INSPECTION SONARCLOUD ------------------
+    # ------------------ INSPECTION SONARCLOUD ------------------
     - name: Cache SonarCloud packages
       uses: actions/cache@v4
       with:
@@ -50,3 +52,4 @@ jobs:
           -Dsonar.organization=mkepl \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.qualitygate.wait=true
+    # -----------------------------------------------------------
