@@ -13,6 +13,8 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+  release:
+    types: [created]
 
 jobs:
   build:
@@ -58,3 +60,7 @@ jobs:
    #       -Dsonar.host.url=https://sonarcloud.io \
    #       -Dsonar.qualitygate.wait=true
     # -----------------------------------------------------------
+    - name: Publish to GitHub Packages Apache Maven
+      run: mvn deploy -s ${{ github.workspace }}/setting.xml
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
