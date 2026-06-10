@@ -25,4 +25,33 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <!-- ================== TAMBAHAN BUILD PLUGINS ================== -->
+    <build>
+        <plugins>
+ 
+            <!-- TAMBAHAN 1: maven-surefire-plugin                     -->
+            <!-- Wajib ada agar JUnit 5 terdeteksi saat 'mvn test'     -->
+            <!-- Tanpa ini, test bisa diam-diam tidak dijalankan        -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
+            </plugin>
+ 
+        </plugins>
+    </build>
+    <!-- ============================================================ -->
+ 
+    <!-- ================== TAMBAHAN DISTRIBUTION MANAGEMENT ======== -->
+    <!-- Mengikuti gaya file referensi                                 -->
+    <!-- Menentukan tujuan deploy: GitHub Packages milik repo ini      -->
+    <!-- Ganti USERNAME dan REPO_NAME sesuai akun & nama repo GitHub   -->
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/USERNAME/REPO_NAME</url>
+        </repository>
+    </distributionManagement>
+    <!-- ============================================================ -->
 </project>
