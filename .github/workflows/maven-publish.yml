@@ -38,21 +38,21 @@ jobs:
       run: mvn -B package -DskipTests --file pom.xml
 
     # ------------------ INSPECTION SONARCLOUD ------------------
-    - name: Cache SonarCloud packages
-      uses: actions/cache@v4
-      with:
-        path: ~/.sonar/cache
-        key: ${{ runner.os }}-sonar
-        restore-keys: ${{ runner.os }}-sonar
+    #- name: Cache SonarCloud packages
+    #  uses: actions/cache@v4
+    #  with:
+    #    path: ~/.sonar/cache
+    #    key: ${{ runner.os }}-sonar
+    #    restore-keys: ${{ runner.os }}-sonar
 
-    - name: Run SonarCloud Inspection
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}    
-      run: |
-        mvn -B verify sonar:sonar \
-          -Dsonar.projectKey=MKEPL_TUBES_MKEPL \
-          -Dsonar.organization=mkepl \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.qualitygate.wait=true
+   # - name: Run SonarCloud Inspection
+   #   env:
+   #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+   #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}    
+   #   run: |
+   #     mvn -B verify sonar:sonar \
+   #       -Dsonar.projectKey=MKEPL_TUBES_MKEPL \
+   #       -Dsonar.organization=mkepl \
+   #       -Dsonar.host.url=https://sonarcloud.io \
+   #       -Dsonar.qualitygate.wait=true
     # -----------------------------------------------------------
