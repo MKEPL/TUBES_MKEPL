@@ -1,0 +1,22 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+ 
+  <pluginGroups>
+    <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
+  </pluginGroups>
+ 
+  <!-- ================== TAMBAHAN SERVERS ======================== -->
+  <!-- Kredensial untuk publish ke GitHub Packages                  -->
+  <!-- GITHUB_TOKEN otomatis tersedia di GitHub Actions             -->
+  <!-- Tidak perlu set secret manual untuk bagian ini               -->
+  <servers>
+    <server>
+      <id>github</id>
+      <username>${env.GITHUB_ACTOR}</username>
+      <password>${env.GITHUB_TOKEN}</password>
+    </server>
+  </servers>
+  <!-- ============================================================ -->
+ 
+</settings>
