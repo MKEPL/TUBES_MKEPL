@@ -13,7 +13,8 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-
+  release: 
+    types: [created]
 jobs:
   build:
 
@@ -31,6 +32,9 @@ jobs:
       with:
         java-version: '22'
         distribution: 'temurin'
+        server-id: github
+        server-username: GITHUB_ACTOR
+        server-password: GITHUB_TOKEN
         cache: maven
 
     - name: Run JUnit Tests
@@ -58,3 +62,9 @@ jobs:
    #       -Dsonar.host.url=https://sonarcloud.io \
    #       -Dsonar.qualitygate.wait=true
     # -----------------------------------------------------------
+    - name: Deploy to GitHub Packages
+      if: github.event_name != 'pull_request'
+      run: mvn deploy -DskipTests
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_ACTOR: ${{ github.actor }}
