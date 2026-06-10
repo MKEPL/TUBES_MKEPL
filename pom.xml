@@ -42,5 +42,10 @@
             <name>GitHub Packages</name>
             <url>https://maven.pkg.github.com/MKEPL/TUBES_MKEPL</url>
         </repository>
+        <snapshotRepository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/MKEPL/TUBES_MKEPL</url>
+        </snapshotRepository>
     </distributionManagement>
 </project>
