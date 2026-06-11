@@ -19,8 +19,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
+    permissions: 
+      contents: write
       packages: write
     steps:
     - uses: actions/checkout@v4
@@ -35,11 +35,14 @@ jobs:
         server-id: github
         server-username: GITHUB_ACTOR
         server-password: GITHUB_TOKEN
+        settings-path: ${{ github.workspace }}
         cache: maven
-
     - name: Run JUnit Tests
       run: mvn test
-
+    - name: Verify setting.xml
+      run: |
+        ls -al $GITHUB_WORKSPACE
+        test -f $GITHUB_WORKSPACE/setting.xml && echo "setting.xml found"
     - name: Build with Maven
       run: mvn -B package -DskipTests --file pom.xml
 
@@ -62,9 +65,12 @@ jobs:
    #       -Dsonar.host.url=https://sonarcloud.io \
    #       -Dsonar.qualitygate.wait=true
     # -----------------------------------------------------------
-    - name: Deploy to GitHub Packages
-      if: github.event_name != 'pull_request'
-      run: mvn deploy -DskipTests
+    - name: Debug GitHub Context
+      run: |
+        echo "Actor: $GITHUB_ACTOR"
+        echo "Repository: $GITHUB_REPOSITORY"
+    - name: Publish to GitHub Packages Apache Maven
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+      run: mvn -B deploy -s $GITHUB_WORKSPACE/setting.xml
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GITHUB_ACTOR: ${{ github.actor }}
