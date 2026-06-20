@@ -38,7 +38,7 @@ jobs:
         run: mvn test
         continue-on-error: true # Agar pipeline lanjut walau ada test gagal
       - name: Publish Test Report
-        uses: EnricoMi/publish-unit-test-result-action@v2
+        uses: EnricoMi/publish-unit-test-result-action@b3f8796819acf652cecbf27a64fa9ac8d7e137ee # v2
         if: always() # Agar report tetap dibuat meskipun test gagal
         with:
           files: "**/target/surefire-reports/TEST-*.xml"
